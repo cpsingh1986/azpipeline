@@ -2,7 +2,7 @@ resources:
   repositories:
     - repository: pipeline_templates
       type: git
-      name: lib-pipeline-templates
+      name: LIB-PIPELINE-TEMPLATE
       ref: main
 
 trigger: none 
@@ -13,4 +13,4 @@ extends:
   parameters:
     enviornmentPrefix: EventStore
     componentName: EventStore_Api
-    
+
