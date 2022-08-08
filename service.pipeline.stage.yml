@@ -1,26 +1,34 @@
-parameters:
-- name: platformEnviornmentPrefix
-  type: string
-  default: sbx
-- name: projectVariables
-  type: object
-  default: sample
-- name: agentPoolName
-  displayName: Agent pool to use for the Build job
-  type: string 
-  default: ubunt-latest
- 
- 
-variables: 
-- template: ${{ parameters.projectVariables.file}}@${{parameters.projectVariables.repository}}
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-stages:
-- stage: Build
-  jobs:
-  - template: pipelines/build/dotnet.build.jobs.yaml
-    parameters:
-      buildConfiguration: Release 
-      agentPoolName: ${{parameters.agentPoolName}}
-      publishArtifacts: ne(variables['Build.Reason'], 'PullRequest')
-      postBuildSteps: ${{parameters.postBuildSteps}}
+trigger:
+- main
 
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
