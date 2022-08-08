@@ -1,5 +1,4 @@
 trigger: none 
-name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
 
 extends:
   template: service.pipeline.stage.yml
