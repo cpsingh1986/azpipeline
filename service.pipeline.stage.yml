@@ -4,6 +4,7 @@ parameters:
   default: sbx
 - name: projectVariables
   type: object
+  default: sample
 - name: agentPoolName
   displayName: Agent pool to use for the Build job
   type: string 
