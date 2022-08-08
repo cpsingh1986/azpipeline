@@ -17,7 +17,7 @@ variables:
 stages:
 - stage: Build
   jobs:
-  - template: build/dotnet.build.jobs.yaml
+  - template: pipelines/build/dotnet.build.jobs.yaml
     parameters:
       buildConfiguration: Release 
       agentPoolName: ${{parameters.agentPoolName}}
