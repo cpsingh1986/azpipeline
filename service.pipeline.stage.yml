@@ -4,9 +4,9 @@ parameters:
 - name: projectVariables
   type: object
 - name: agentPoolName
- displayName: Agent pool to use for the Build job
- type: string 
- default: ubunt-latest
+  displayName: Agent pool to use for the Build job
+  type: string 
+  default: ubunt-latest
  
  
 variables: 
