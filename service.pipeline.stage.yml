@@ -15,10 +15,10 @@ variables:
 stages:
 - stage: Build
   jobs:
-  -template: build/dotnet.build.jobs.yaml
-   parameters:
-    buildConfiguration: Release 
-    agentPoolName: ${{parameters.agentPoolName}}
-    publishArtifacts: ne(variables['Build.Reason'], 'PullRequest')
-    postBuildSteps: ${{parameters.postBuildSteps}}
+  - template: build/dotnet.build.jobs.yaml
+    parameters:
+      buildConfiguration: Release 
+      agentPoolName: ${{parameters.agentPoolName}}
+      publishArtifacts: ne(variables['Build.Reason'], 'PullRequest')
+      postBuildSteps: ${{parameters.postBuildSteps}}
 
