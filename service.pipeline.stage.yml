@@ -1,14 +1,16 @@
 parameters:
--name: platformEnviornmentPrefix
- type: string
--name: projectVariables
- type: object
--name: agentPoolName
-displayName: Agent pool to use for the Build job
-type: string 
-default: ubunt-latest
+- name: platformEnviornmentPrefix
+  type: string
+- name: projectVariables
+  type: object
+- name: agentPoolName
+ displayName: Agent pool to use for the Build job
+ type: string 
+ default: ubunt-latest
+ 
+ 
 variables: 
-- template:${{ parameters.projectVariables.file}}@${{parameters.projectVariables.repository}}
+- template: ${{ parameters.projectVariables.file}}@${{parameters.projectVariables.repository}}
 
 stages:
 - stage: Build
